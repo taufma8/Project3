@@ -18,58 +18,43 @@ $('#title').on('change', function() {
 $('#design option:first-child').hide();
 
 //Updating the color field and hiding the colors in the dropdown menu.
-const optionTheme = $('<option selected>Please select a T-shirt theme</option>');
+const optionTheme = '<option selected>Please select a T-shirt theme</option>';
 $('#color').prepend(optionTheme);
-
 
 //hiding everything in color but the first one.
 $('#color option').hide();
 
-
 //create a change function that if js puns is chosen, then it will populate colors specific to that.
-
 $('#design').on('change', function() {
-    const design = $('#design').val();
-
-    if(design === 'js puns'){
-//show js puns
-        /JS Puns/g.show();
-        // search(/JS Puns/).show();
-//   $('#color option').find('option:contains("JS Puns")').show();
-    } else {
-//show heart js
-        // search(/I &#9829; JS/).show();
-
-    }
-
+    const design = $('#design option:selected').text();
+    const regEx = /Theme - (.*)$/;
+    const matchedString = design.match(regEx)[1];
+    $(`#color option:contains("${matchedString}")`).show();
+    $(`#color option:not(:contains("${matchedString}"))`).hide();  
 });
 
 
 
-// $('.child:not(:first)').hide();
+//activity section
+const totalCost = '<label>Total Cost:</label>';
+const activities = $('.activities');
+activities.append(totalCost);
+let totalActivityCost = 0;
 
-// $(optionTheme).attr('class', 'instruction');
-// $('.instruction').hide();
+$(activities).on('change', function() {
+    const checkboxInput = $('.activities input[type=checkbox]:checked').each(function (index, value) {
+       label.text(); 
+    });
+    const label = $(checkboxInput).parent().text();
+    //$('.activities label').text();
+    console.log(checkboxInput);
+    // regEx = /^[$]/;
+    // const $ = activities.match(regEx);
+});
 
-// const color = $('#color').val();
-// color.hide();
-// $('#color').hide();
+/(.*)\s—\s((.*)\s\d(.*)-\d(.*),\s)?[$]\d+/
 
-// $('').on('change', function() {
-//     if( === '') {
-        
-//     } else {
-          
-//     }
-// });
-
-
-// $('#design').on('change', function() {
-//     let theme = $('#design').val();
-//     theme === 'Select Theme'.hide();
-//     }
-// );
-
+//payment section
 $('#payment option:first-child').hide();
 $('#payment').on('change', function() {
     const value = $(this).val();
