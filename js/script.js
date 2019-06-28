@@ -34,25 +34,68 @@ $('#design').on('change', function() {
 });
 
 
-
 //activity section
-const totalCost = '<label>Total Cost:</label>';
+const totalCost = '<label></label>';
 const activities = $('.activities');
 activities.append(totalCost);
-let totalActivityCost = 0;
 
 $(activities).on('change', function() {
-    const checkboxInput = $('.activities input[type=checkbox]:checked').each(function (index, value) {
-       label.text(); 
+    const checkbox = $('.activities input[type=checkbox]:checked');
+    let totalActivityCost = 0;
+    $(checkbox).each(function (index, element) {
+        switch(element.name) {
+            case "all" :
+            totalActivityCost += 200;
+            break;
+            case "js-frameworks" :
+            totalActivityCost += 100;
+            break;
+            case "js-libs" :
+            totalActivityCost += 100;
+            break;
+            case "express" :
+            totalActivityCost += 100;
+            break;
+            case "node" :
+            totalActivityCost += 100;
+            break;
+            case "build-tools" :
+            totalActivityCost += 100;
+            break;
+            case "npm" :
+            totalActivityCost += 100;
+            break;  
+        }
     });
-    const label = $(checkboxInput).parent().text();
-    //$('.activities label').text();
-    console.log(checkboxInput);
-    // regEx = /^[$]/;
-    // const $ = activities.match(regEx);
-});
+    $('.activities').append('<p id="total-cost"></p>')
 
-/(.*)\s—\s((.*)\s\d(.*)-\d(.*),\s)?[$]\d+/
+    $('#total-cost').html('Total Cost: $' + totalActivityCost);
+
+    // $(activities).each(function (index, element) {
+    //     switch(element.name) {
+    //         case "js-frameworkschecked" :
+    //         $('.activities input[name=express]').prop('disabled', true);
+    //         break;
+    //         // case "js-libs" :
+            // $('.activities').prop('disabled', true);
+            // break;
+            // case "express" :
+            // $('.activities').prop('disabled', true);
+            // break;
+            // case "node" :
+            // $('.activities').prop('disabled', true);
+            // break;
+            // case "build-tools" :
+            // $('.activities').prop('disabled', true);
+            // break;
+            // case "npm" :
+            // $('.activities').prop('disabled', true);
+            // break;  
+
+    $('.activities').append('<p id="total-cost"></p>')
+
+    $('#total-cost').html('Total Cost: $' + totalActivityCost);
+});
 
 //payment section
 $('#payment option:first-child').hide();
@@ -66,3 +109,54 @@ $('#payment').on('change', function() {
         $('#credit-card').hide().next().hide().next().show();
     }
 });
+
+    // const label = $(checkboxInput).parent().text();
+    //$('.activities label').text();
+    // console.log(checkboxInput);
+    // regEx = /^[$]/;
+    // const $ = activities.match(regEx);
+    // const regExActivities = /(.*)\s—\s((.*)\s\d(.*)-\d(.*),\s)?[$]\d+/;
+    // const regExTitle = /(.*)\s—/;
+    // const regExSchedule = /\s—\s(.*)\s\d(.*)-\d(.*),/
+    // const regExCost = /[$]\d+/;
+//     const string = "Main Conference — $200";
+//     const indexOfVar = "$"
+// $(string).indexOf("$");
+
+    // const mainConf = 200;
+    // const jsFramework = 100;
+    // const jsLibraries = 100;
+    // const express = 100;
+    // const nodejs = 100;
+    // const build = 100;
+    // const npm = 100;
+
+
+    // const mainConf = $('.activities input[name="all"]);
+// const jsFramework = 100;
+// const jsLibraries = 100;
+// const express = 100;
+// const nodejs = 100;
+// const build = 100;
+// const npm = 100;
+
+// $(activities) = {
+//     name: "all",
+//     value: "200"
+// },
+// {
+//     name: "jsFramework",
+//     value: "100"
+// };
+
+
+    // if (checkboxInput == 'input[name=all]') {
+    //     totalActivityCost += 200;
+    // } else if (checkboxInput == regExTitle) {
+    //     totalActivityCost += 100;
+    // } else if (checkboxInput == regExTitle) {
+    //     totalActivityCost += 100;
+    // } else {
+    //     totalActivityCost += 100;
+    // }  console.log(totalActivityCost);
+    // });
