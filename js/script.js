@@ -128,6 +128,8 @@ $(nodejs).on('change', function() {
 //payment section
 $('fieldset div p').hide();
 $('#payment option:first-child').hide();
+// $('select option[value="credit card"]').attr("selected",true);
+let payment = 'credit card';
 $('#payment').on('change', function() {
     const value = $(this).val();
     if(value == 'credit card') {
@@ -143,10 +145,16 @@ $('#payment').on('change', function() {
 
 
 //validation section
+
+nameNotValid = false;
+emailNotValid = false;
+activitiesNotValid = false; 
+ccNotValid = false;
+
 function validateName() {
     const nameRegEx = /^[a-zA-Z]+$/;
     const name = $('#name').val();
-    let nameNotValid = false;
+    // let nameNotValid = false;
 
     if (!nameRegEx.test(name) || name == '') {
         $('input[name="user_name"]').css("border-color", "red");
@@ -161,7 +169,7 @@ function validateName() {
 function validateEmail() {
     const emailRegEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const email = $('#mail').val();
-    let emailNotValid = false;
+    // let emailNotValid = false;
 
     if (!emailRegEx.test(email) || email == '') {
         $('input[name="user_email"]').css("border-color", "red");
@@ -178,7 +186,7 @@ function validateActivities() {
     $('.activities input:checked').each(() => {
         numberOfActivities.push($(this).text());
     });
-    activitiesNotValid = false;
+    // activitiesNotValid = false;
 
     if (numberOfActivities.length < 1) {
         $('.activities legend').css("color", "red");
@@ -191,7 +199,7 @@ function validateActivities() {
 function validateCard() {
     const creditRegEx = /^[0-9]{13,16}?$/;
     const credit = $("#cc-num").val();
-    let ccNotValid = false;
+    // let ccNotValid = false;
 
     if (!creditRegEx.test(credit) || credit == '') {
         $('input[name="user_cc-num"]').css("border-color", "red");
@@ -212,11 +220,9 @@ function validateZip() {
         $('input[name="user_zip"]').css("border-color", "red");
         $('#zip').prev().css("color", "red");
         ccNotValid = true;
-
     } else {
         $('input[name="user_zip"]').css("border-color", "#b0d3e2");
         $('#zip').prev().css("color", "black");
-
     }
 }
 
@@ -228,7 +234,6 @@ function validateCvv() {
         $('input[name="user_cvv"]').css("border-color", "red");
         $('#cvv').prev().css("color", "red");
         ccNotValid = true;
-
     } else {
         $('input[name="user_cvv"]').css("border-color", "#b0d3e2");
         $('#cvv').prev().css("color", "black");
@@ -252,10 +257,6 @@ $(document).ready(function () {
         validateActivities();
         checkCreditCard();
 
-        nameNotValid = true;
-        emailNotValid = true;
-        activitiesNotValid = true; 
-        ccNotValid = true;
 
         if (nameNotValid || emailNotValid || activitiesNotValid || ccNotValid){
             alert("Registration unsuccessul. Please correct the inputs marked red.")
