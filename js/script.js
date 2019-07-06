@@ -128,10 +128,10 @@ $(nodejs).on('change', function() {
 //payment section
 $('fieldset div p').hide();
 $('#payment option:first-child').hide();
-// $('select option[value="credit card"]').attr("selected",true);
-let payment = 'credit card';
+
+let value = 'credit card';
 $('#payment').on('change', function() {
-    const value = $(this).val();
+    value = $(this).val();
     if(value == 'credit card') {
         $('#credit-card').show().next().hide().next().hide();
     } else if (value == 'paypal') {
@@ -241,7 +241,7 @@ function validateCvv() {
     }
 }
 function checkCreditCard(){
-    if (payment === "credit card"){
+    if (value === "credit card"){
         validateCard();
         validateZip();
         validateCvv();
@@ -258,11 +258,10 @@ $(document).ready(function () {
         checkCreditCard();
 
 
-        if (nameNotValid || emailNotValid || activitiesNotValid || ccNotValid){
-            alert("Registration unsuccessul. Please correct the inputs marked red.")
+        if (nameNotValid || emailNotValid || activitiesNotValid || ccNotValid) {
+            alert("Please fill out the form correctly.")
         } 
-        else{
-            alert("Registration successful! See you at the conference!")
+        else {
             location.reload(true);
         }  
 
