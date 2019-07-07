@@ -34,7 +34,7 @@ $('#design').on('change', function() {
     $(`#color option:not(:contains("${matchedString}"))`).hide();  
 });
 
-//activity section
+//Updating the activity section total price as the checkboxes are checked.
 const totalCost = '<label></label>';
 const activities = $('.activities');
 activities.append(totalCost);
@@ -99,7 +99,6 @@ $(express).on('change', function() {
     } else {
         jsFrameworks.prop("disabled", false);
         jsFrameworks.parent().css("color", "black");
-
     }
 });
 
@@ -110,7 +109,6 @@ $(jsLibraries).on('change', function() {
     } else {
         nodejs.prop("disabled", false);
         nodejs.parent().css("color", "black");
-
     }
 });
 
@@ -121,11 +119,10 @@ $(nodejs).on('change', function() {
     } else {
         jsLibraries.prop("disabled", false);
         jsLibraries.parent().css("color", "black");
-
     }
 });
 
-//payment section
+//Payment section: Depending on what form of payment they choose, they will only see the corresponding method of payment.
 $('fieldset div p').hide();
 $('#payment option:first-child').hide();
 
@@ -143,14 +140,7 @@ $('#payment').on('change', function() {
     }
 });
 
-
-//validation section
-
-nameNotValid = false;
-emailNotValid = false;
-activitiesNotValid = false; 
-ccNotValid = false;
-
+//Validating if name is in the correct format. If not, then the border and title will turn red.
 function validateName() {
     const nameRegEx = /^[a-zA-Z]+$/;
     const name = $('#name').val();
@@ -166,10 +156,10 @@ function validateName() {
     }
 }
 
+//Validating if email is in the correct format. If not, then the border and title will turn red.
 function validateEmail() {
     const emailRegEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const email = $('#mail').val();
-    // let emailNotValid = false;
 
     if (!emailRegEx.test(email) || email == '') {
         $('input[name="user_email"]').css("border-color", "red");
@@ -181,13 +171,12 @@ function validateEmail() {
     }
 }
 
+//Validating if at least 1 activity is chosen. If not, then the title will turn red.
 function validateActivities() {
     let numberOfActivities = [];
     $('.activities input:checked').each(() => {
         numberOfActivities.push($(this).text());
     });
-    // activitiesNotValid = false;
-
     if (numberOfActivities.length < 1) {
         $('.activities legend').css("color", "red");
         activitiesNotValid = true;
@@ -196,10 +185,10 @@ function validateActivities() {
     }
 }
 
+//Validating if credit card is in the correct format. If not, then the border and title will turn red.
 function validateCard() {
     const creditRegEx = /^[0-9]{13,16}?$/;
     const credit = $("#cc-num").val();
-    // let ccNotValid = false;
 
     if (!creditRegEx.test(credit) || credit == '') {
         $('input[name="user_cc-num"]').css("border-color", "red");
@@ -208,10 +197,10 @@ function validateCard() {
     } else {
         $('input[name="user_cc-num"]').css("border-color", "#b0d3e2");
         $('#cc-num').prev().css("color", "black");
-
     }
 }
 
+//Validating if zipcode is in the correct format. If not, then the border and title will turn red.
 function validateZip() {
     const zipRegEx = /^[0-9]{5}$/;
     const zip = $("#zip").val();
@@ -226,6 +215,7 @@ function validateZip() {
     }
 }
 
+//Validating if cvv is in the correct format. If not, then the border and title will turn red.
 function validateCvv() {
     const cvvRegEx = /^[0-9]{3}$/;
     const cvv = $("#cvv").val();
@@ -240,30 +230,36 @@ function validateCvv() {
 
     }
 }
+
+//Validating if credit card is checked then check zip and cvv.
 function checkCreditCard(){
-    if (value === "credit card"){
+    if (value === "credit card") {
         validateCard();
         validateZip();
         validateCvv();
     } 
 }
 
+//Validating the whole form is in the correct format when the "Register" button is clicked. 
 $(document).ready(function () {
 
     $('button:submit').on('click', function(e) {
+        nameNotValid = false;
+        emailNotValid = false;
+        activitiesNotValid = false; 
+        ccNotValid = false;
+
         e.preventDefault();
         validateName();
         validateEmail();
         validateActivities();
         checkCreditCard();
 
-
         if (nameNotValid || emailNotValid || activitiesNotValid || ccNotValid) {
-            alert("Please fill out the form correctly.")
+            alert("Please fill out the form correctly.");
         } 
         else {
             location.reload(true);
         }  
-
     }); 
 }); 
